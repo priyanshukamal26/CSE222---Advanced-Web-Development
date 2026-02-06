@@ -1,0 +1,142 @@
+// # 🌊 What is a Stream in Node.js?
+// A **stream** is a way to handle data piece-by-piece instead of loading everything into memory at once.
+
+// Think:
+// * ❌ Bad → Load a 1GB file fully into memory
+// * ✅ Good → Process it chunk by chunk
+// Streams are **memory-efficient** and **fast**.
+
+// ---
+
+// # 🧩 4 Types of Streams
+// Node.js has **four** main types:
+
+// | Type          | Description                 | Example                  |
+// | ------------- | --------------------------- | ------------------------ |
+// | **Readable**  | You read data from it       | `fs.createReadStream()`  |
+// | **Writable**  | You write data to it        | `fs.createWriteStream()` |
+// | **Duplex**    | Read + Write                | `net.Socket`             |
+// | **Transform** | Modify data while streaming | `zlib.createGzip()`      |
+
+// ---
+
+// # 📖 Example 1 — Read a File (Readable Stream)
+
+// ```js
+// const fs = require('fs');
+
+// const readStream = fs.createReadStream('bigfile.txt', 'utf8');
+
+// readStream.on('data', (chunk) => {
+//   console.log('Received chunk:', chunk);
+// });
+
+// readStream.on('end', () => {
+//   console.log('Finished reading.');
+// });
+// ```
+
+// 👉 This reads the file in chunks instead of loading it fully.
+
+// ---
+
+// # ✍ Example 2 — Write to a File (Writable Stream)
+
+// ```js
+// const fs = require('fs');
+
+// const writeStream = fs.createWriteStream('output.txt');
+
+// writeStream.write('Hello\n');
+// writeStream.write('World\n');
+// writeStream.end();
+// ```
+
+// ---
+
+// # 🔄 Example 3 — Pipe (The Powerful Part)
+
+// The best feature of streams is `.pipe()`.
+
+// ```js
+// const fs = require('fs');
+
+// const readStream = fs.createReadStream('input.txt');
+// const writeStream = fs.createWriteStream('copy.txt');
+
+// readStream.pipe(writeStream);
+// ```
+
+// 🔥 This copies a file efficiently with **one line**.
+
+// ---
+
+// # 🧠 Why Streams Are Powerful
+
+// 1. Memory efficient
+// 2. Faster for large files
+// 3. Perfect for APIs, file uploads, video streaming
+// 4. Prevents blocking the event loop
+
+// ---
+
+// # 🔁 Example 4 — Transform Stream (Compress File)
+
+// ```js
+// const fs = require('fs');
+// const zlib = require('zlib');
+
+// fs.createReadStream('input.txt')
+//   .pipe(zlib.createGzip())
+//   .pipe(fs.createWriteStream('input.txt.gz'));
+// ```
+
+// 💥 This compresses the file while streaming it.
+
+// ---
+
+// # 🎯 Real World Use Cases
+
+// * File upload systems
+// * Video/audio streaming servers
+// * Log processing
+// * Data transformation pipelines
+// * Large CSV processing
+
+// ---
+
+// # ⚙️ Bonus — Handling Backpressure
+
+// If writing too fast:
+
+// ```js
+// const writable = fs.createWriteStream('output.txt');
+
+// if (!writable.write(data)) {
+//   writable.once('drain', () => {
+//     console.log('Buffer drained');
+//   });
+// }
+// ```
+
+// Node manages flow automatically with `.pipe()`.
+
+// ---
+
+// # 🚀 Quick Summary
+
+// * Streams = process data in chunks
+// * 4 types: Readable, Writable, Duplex, Transform
+// * `.pipe()` is your best friend
+// * Efficient for large data
+
+// ---
+
+// If you want, I can next show:
+
+// * 🔥 How streams work in Express (file upload/download)
+// * 🔥 Custom stream implementation
+// * 🔥 Stream vs Buffer deep comparison
+// * 🔥 Practical interview questions on streams
+
+// Tell me what direction you want 👌
