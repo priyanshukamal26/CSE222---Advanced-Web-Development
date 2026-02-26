@@ -1,0 +1,34 @@
+<!-- Create a form with post method, take a input with type number.
+Fetch the entered number, find the factorial of the fetched number.
+send the result of the factorial onto the server. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Post</title>
+</head>
+<body>
+    <form action="/taskformdetails" method="post">
+        <label>Username</label>
+        <input type="text" name="n1">
+        <br>
+        <br>
+        <label>Password</label>
+        <input type="password" name="n2">
+        <br>
+        <br>
+        <label>Enter a number</label>
+        <input type="number" name="n3">
+        <br>
+        <br>
+        <label>Upload file</label>
+        <input type="file" name="n4">
+        <br>
+        <br>
+        <input type="submit" value="fetch details">
+        
+    </form>
+</body>
+</html>
