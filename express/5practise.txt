@@ -1,0 +1,29 @@
+Section A
+
+1. Introduce Node.js. and explain the key features and why it is used for server-side development.
+2. Describe the steps involved in installing Node.js on a system and explain how to verify the installation.
+3. Explain the Node.js REPL(Read-Evaluate-Print Loop) and its uses in development.
+4. What is npm? Explain the purpose of the npm init command in Node.js project.
+5. Differentiate between the following Node.js modules:
+    - Core Modules.
+    - Local Modules.
+    - Third-party Modules.
+6. Explain thw conceptof EventEmitter in Node.js with a suitable example.
+7. Whaht are callbacks in Node.js? Explain how they are used in asynchronous programming. 
+
+
+Section B - Q7 Mandatory. Rest any 2.
+
+1. Explain Handling Data I/O in Node.js. Discuss the fs module is used to read and write files with an example.
+2. Explain how JSON data is handled in Node.js. Write a program to read JSON data from a file and display it.
+3. Describe the Stream Module in Node.js. Explain how stream improves performance when handling large data files.
+4. Explain problems and async/await in Node.js. Compare them with callbacks and illustrate with code examples.
+5. Explain the HTTP module in Node.js and demonstrate how to create basic HTTP server. Also, explain the request and response objects.
+6. Describe basic routing in Node.js and explain how to set response headers and status codes.
+7. Explain the steps for creating a basic website using Express.js. Your answer should include:
+- Installing Express
+- Implementing GET and POST requests.
+- Using body-parser
+- Using express.Router
+- Using express.validator
+

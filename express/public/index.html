@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Whiteboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background-color:#0f0f0f;
+    color:#eaeaea;
+    line-height:1.6;
+    background-image:
+        radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:22px 22px;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    left:60px;
+    top:0;
+    width:1px;
+    height:100%;
+    background:rgba(132, 129, 129, 0.08);
+    pointer-events:none;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+/* HEADER */
+header{
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(20,20,20,0.6);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-weight:600;
+    font-size:20px;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:14px;
+    position:relative;
+    transition:0.3s;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:1px;
+    background:#fff;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#fff;
+}
+nav a:hover::after{
+    width:100%;
+}
+
+/* HERO */
+.hero{
+    padding:100px 8%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:60px;
+    flex-wrap:wrap;
+    text-align:left;
+}
+
+.hero-text{
+    max-width:550px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.btn{
+    padding:12px 25px;
+    border:none;
+    background:#fff;
+    color:#000;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn:hover{
+    background:#ccc;
+}
+.btn:active{
+    transform:scale(0.95);
+}
+
+/* Animated SVG */
+.hero-svg{
+    width:420px;
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0px);}
+}
+
+/* SECTION */
+.section{
+    padding:100px 8%;
+    border-top:1px solid #1a1a1a;
+    text-align:center;
+}
+
+.section h2{
+    font-size:30px;
+    margin-bottom:50px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:40px;
+    perspective:1000px;
+}
+
+/* CARDS */
+.card{
+    background:#151515;
+    border:1px solid #1f1f1f;
+    height:230px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 0.8s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:rotateY(180deg);
+}
+
+.card-front,
+.card-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    padding:30px;
+    backface-visibility:hidden;
+}
+
+.card-front{
+    background:#151515;
+}
+
+.card-back{
+    background:#1c1c1c;
+    transform:rotateY(180deg);
+    font-size:14px;
+    color:#bbb;
+}
+
+.card-front::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background:rgba(255,255,255,0.1);
+}
+
+/* HOW SVG */
+.how-svg{
+    width:300px;
+    margin:40px auto;
+    display:block;
+    animation:pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:0.6;}
+    50%{opacity:1;}
+    100%{opacity:0.6;}
+}
+
+.how p{
+    max-width:700px;
+    margin:auto;
+    color:#aaa;
+}
+
+form{
+    margin:40px auto 0;
+    max-width:400px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    background:#111;
+    border:1px solid #333;
+    color:#fff;
+}
+
+input:focus{
+    border-color:#888;
+    outline:none;
+    box-shadow:0 0 8px rgba(255,255,255,0.15);
+}
+
+.submit-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#fff;
+    color:#000;
+    cursor:pointer;
+}
+
+footer{
+    padding:30px;
+    border-top:1px solid #1f1f1f;
+    text-align:center;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">WhiteBoard.</div>
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#how">How it Works</a>
+        <a href="#register">Register</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Collaborative Learning<br>Made Simple.</h1>
+        <p>
+            A real-time virtual whiteboard platform built for teachers and students.
+            Create interactive lessons, annotate freely, and collaborate seamlessly.
+        </p>
+        <a href="#register"><button class="btn">Get Started</button></a>
+    </div>
+
+    <!-- Animated Whiteboard SVG -->
+    <svg class="hero-svg" viewBox="0 0 400 300">
+        <rect x="20" y="40" width="360" height="200" rx="15"
+              stroke="white" stroke-opacity="0.3" fill="none"/>
+        <circle cx="100" cy="140" r="10" fill="white" fill-opacity="0.4"/>
+        <line x1="130" y1="140" x2="300" y2="140"
+              stroke="white" stroke-opacity="0.4" />
+        <rect x="80" y="180" width="180" height="10"
+              fill="white" fill-opacity="0.3"/>
+    </svg>
+</section>
+
+<section class="section" id="features">
+    <h2>Features</h2>
+    <div class="features">
+
+        <div class="card">
+            <div class="card-front">
+                <h3>Real-Time Collaboration</h3>
+                <p>Multiple users interact simultaneously.</p>
+            </div>
+            <div class="card-back">
+                • Live cursor sync<br>
+                • Instant drawing<br>
+                • Multi-user presence
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-front">
+                <h3>Live Annotations</h3>
+                <p>Explain visually with tools.</p>
+            </div>
+            <div class="card-back">
+                • Shapes & text<br>
+                • Undo / Redo<br>
+                • Color controls
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-front">
+                <h3>Session Rooms</h3>
+                <p>Create secure classrooms.</p>
+            </div>
+            <div class="card-back">
+                • Unique codes<br>
+                • Invite links<br>
+                • Access control
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-front">
+                <h3>Accessible Anywhere</h3>
+                <p>Works in your browser.</p>
+            </div>
+            <div class="card-back">
+                • Cross-device<br>
+                • Cloud storage<br>
+                • Lightweight
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section how" id="how">
+    <h2>How It Works</h2>
+
+    <!-- Center animated SVG -->
+    <svg class="how-svg" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="60"
+                stroke="white" stroke-opacity="0.4"
+                fill="none"/>
+        <circle cx="100" cy="100" r="20"
+                fill="white" fill-opacity="0.3"/>
+    </svg>
+
+    <p>
+        Teachers create a session room and share a code.
+        Students join instantly and collaborate in real-time.
+    </p>
+</section>
+
+<section class="section" id="register">
+    <h2>Register</h2>
+    <p style="color:#aaa;">
+        Start using the Virtual Whiteboard today.
+    </p>
+
+    <form action="/register" method="POST">
+        <input type="text" name="fullname" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Create Account" class="submit-btn">
+    </form>
+</section>
+
+<footer>
+    © 2026 Virtual Whiteboard Platform.
+</footer>
+
+</body>
+</html>

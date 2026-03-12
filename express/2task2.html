@@ -1,1 +1,27 @@
-Create a form 
+<!-- Create a form with post method.
+takke an input field with file type, fetch the entered file name,
+duplicate the file name with ''duplicate.txt'.
+Send the message 'file copied, check your folder', on to the server. -->
+
+
+<!-- Create a form with post method.
+Take an input field with file type, fetch the file name, read the content, 
+write the file with name 'file.txt' and show the content on the server.
+Use asynchronous file reading and writing and create server with express. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/writeFile" method="post">
+        <label>Upload file</label>
+        <input type="file" name="f1"> <br>
+        <input type="submit" value="uploadfile">
+    </form>
+</body>
+</html>
