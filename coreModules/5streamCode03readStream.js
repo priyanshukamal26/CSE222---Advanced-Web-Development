@@ -16,5 +16,4 @@ readStream.on("error", (err) => {
     console.error("Error reading file:", err);
 });
 
-
 // writeStream = fs.createWriteStream("5streamCode01output.txt");

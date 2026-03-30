@@ -8,4 +8,6 @@ const upperCase = new Transform({
     }
 });
 
-fs.createReadStream('5streamCode01input.txt').pipe(upperCase).pipe(fs.createWriteStream('5streamCode02output.txt'));
+fs.createReadStream('5streamCode01input.txt')
+.pipe(upperCase)
+.pipe(fs.createWriteStream('5streamCode02output.txt'));
